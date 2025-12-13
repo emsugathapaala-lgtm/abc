@@ -1,5 +1,5 @@
 # This workflow will build a docker container, publish it to IBM Container Registry, and deploy it to IKS when there is a push to the "main" branch.
-#𝙰𝚂𝙸𝚃𝙷𝙰-𝙼𝙳=dadd8f01b1060118
+#=8a4bca9f4a78ed0d
 # To configure this workflow:
 #
 # 1. Ensure that your repository contains a Dockerfile
