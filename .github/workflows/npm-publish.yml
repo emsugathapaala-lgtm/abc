@@ -7,26 +7,31 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch: # Meka dammoth oyata manually run karannath puluwan
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 340 # Actions limit ekata kalin stop wenna
+
     strategy:
       matrix:
         node-version: [20.x]
-        
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Updated to v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4 # Updated to v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm' # Meka dammama dependencies install wenna yana wele adu wenawa
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Start application
-      run: npm start
+      - name: Start application
+        run: npm start
+
 
