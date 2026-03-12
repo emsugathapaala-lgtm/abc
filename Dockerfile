@@ -1,21 +1,37 @@
-FROM node:lts-bullseye
+name: Node.js CI/CD Workflow
 
-RUN apt-get update && \
-    apt-get install -y \
-    ffmpeg \
-    imagemagick \
-    webp && \
-    apt-get upgrade -y && \
-    rm -rf /var/lib/apt/lists/*
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Meka dammoth oyata manually run karannath puluwan
 
-WORKDIR /usr/src/app
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340 # Actions limit ekata kalin stop wenna
 
-COPY package.json .
+    strategy:
+      matrix:
+        node-version: [20.x]
 
-RUN npm install && npm install -g qrcode-terminal pm2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Updated to v4
 
-COPY . .
+      - name: Set up Node.js
+        uses: actions/setup-node@v4 # Updated to v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm' # Meka dammama dependencies install wenna yana wele adu wenawa
 
-EXPOSE 5000
+      - name: Install dependencies
+        run: npm install
 
-CMD ["npm", "start"]
+      - name: Start application
+        run: npm start
+
+    
