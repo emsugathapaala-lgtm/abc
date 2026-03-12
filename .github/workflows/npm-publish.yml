@@ -20,10 +20,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 # Updated to v4
+        uses: actions/checkout@v6 # Updated to v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4 # Updated to v4
+        uses: actions/setup-node@v6 # Updated to v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm' # Meka dammama dependencies install wenna yana wele adu wenawa
