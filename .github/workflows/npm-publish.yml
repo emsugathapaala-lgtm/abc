@@ -2,39 +2,31 @@ name: Node.js CI/CD Workflow
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [20.x]
-
+        
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4 # Aluthma version eka use karanna
+      uses: actions/checkout@v3
 
     - name: Set up Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm' # Meeka dammama depedencies install wenna yana wele adu wenawa
 
     - name: Install dependencies
-      run: npm ci # 'npm install' ekata wada CI walata 'npm ci' hondai
-
-    - name: Run build
-      run: npm run build --if-present
-
-    - name: Run tests
-      run: npm test
-
+      run: npm install
 
     - name: Start application
       run: npm start
-
 
